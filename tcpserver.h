@@ -16,10 +16,26 @@
  *
  *  Author: Vahid Mardani <vahid.mardani@gmail.com>
  */
-#include <stdlib.h>
+#ifndef TCPSERVER_H_
+#define TCPSERVER_H_
 
 
-int
-main() {
-    return EXIT_FAILURE;
-}
+#include <sys/socket.h>
+
+#include <caio/caio.h>
+
+
+typedef struct tcpserver {
+    struct caio_iomodule *iomodule;
+    struct sockaddr_storage bind;
+} tcpserver_t;
+
+
+#undef CAIO_ARG1
+#undef CAIO_ARG2
+#undef CAIO_ENTITY
+#define CAIO_ENTITY tcpserver
+#include "caio/generic.h"
+
+
+#endif  // TCPSERVER_H_

@@ -28,11 +28,17 @@ endif()
 # cmake_policy(SET CMP0076 NEW)
 
 
-set(IO_MONITORING "epoll" CACHE STRING "IO monitoring system.")
-set_property(CACHE IO_MONITORING PROPERTY STRINGS "epoll" "select")
+set(CHTTPD_IOMONITORING "epoll" CACHE STRING "chttpd IO monitoring system.")
+set_property(CACHE CHTTPD_IOMONITORING PROPERTY STRINGS "epoll" "select")
 
 
-add_executable(chttpd chttpd.c)
+add_library(tcpserver OBJECT tcpserver.c tcpserver.h)
+
+add_executable(chttpd main.c)
+target_link_libraries(chttpd 
+  PRIVATE tcpserver
+  PUBLIC caio
+  )
 
 
 # Menu config
