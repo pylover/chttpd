@@ -19,6 +19,7 @@ sudo apt install cmake cmake-curses-gui build-essential valgrind
 mkdir build
 cd build
 cmake ..
+make menu
 make
 ```
 

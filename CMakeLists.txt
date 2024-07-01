@@ -38,8 +38,9 @@ if(CHTTPD_SERVER)
 add_library(server OBJECT server.c server.h)
 
 add_executable(chttpd 
-	main.c 
-	$<TARGET_OBJECTS:server>
+	server.c 
+	server.h 
+	# $<TARGET_OBJECTS:server>
 )
 
 target_link_libraries(chttpd caio)
@@ -50,6 +51,25 @@ endif()
 # Menu config
 add_custom_target(menu COMMAND ccmake ${PROJECT_BINARY_DIR} )
 add_custom_target(fresh COMMAND cmake ${PROJECT_SOURCE_DIR} --fresh)
+
+
+# Lint
+set(PRETTYC_FLAGS
+    --recursive
+    --verbose=0
+    --repository=.
+    --extensions=c,h,in
+    --linelength=80
+    --headers=h,in
+    --includeorder=standardcfirst
+    --root=.
+    #--quiet
+    ${PROJECT_SOURCE_DIR}
+)
+add_custom_target(lint
+    COMMAND prettyc
+    ${PRETTYC_FLAGS}
+)
 
 
 # Examples

@@ -16,28 +16,26 @@
  *
  *  Author: Vahid Mardani <vahid.mardani@gmail.com>
  */
-#ifndef SERVER_H_
-#define SERVER_H_
+#ifndef CONNECTION_H_
+#define CONNECTION_H_
 
 
-#include <sys/socket.h>
-
-#include <caio/caio.h>
-
-
-/* server state */
-typedef struct chttpd_server {
-    struct caio_iomodule *iomodule;
-    struct sockaddr_storage bind;
-} chttpd_server_t;
-
+/* TCP connection state types */
+typedef struct chttpd_connection {
+    int fd;
+    struct sockaddr_in localaddr;
+    struct sockaddr_in remoteaddr;
+    char buff[BUFFSIZE];
+    size_t bufflen;
+    struct chttpd_server *server;
+} chttpd_connection_t;
 
 
 #undef CAIO_ARG1
 #undef CAIO_ARG2
 #undef CAIO_ENTITY
-#define CAIO_ENTITY chttpd_server
-#include "caio/generic.h"
+#define CAIO_ENTITY chttpd_connection
+#include "caio/generic.h"  // NOLINT
 
 
-#endif  // SERVER_H_
+#endif  // CONNECTION_H_
