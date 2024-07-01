@@ -16,8 +16,8 @@
  *
  *  Author: Vahid Mardani <vahid.mardani@gmail.com>
  */
-#ifndef TCPSERVER_H_
-#define TCPSERVER_H_
+#ifndef SERVER_H_
+#define SERVER_H_
 
 
 #include <sys/socket.h>
@@ -25,17 +25,17 @@
 #include <caio/caio.h>
 
 
-typedef struct tcpserver {
+typedef struct chttpd_server {
     struct caio_iomodule *iomodule;
     struct sockaddr_storage bind;
-} tcpserver_t;
+} chttpd_server_t;
 
 
 #undef CAIO_ARG1
 #undef CAIO_ARG2
 #undef CAIO_ENTITY
-#define CAIO_ENTITY tcpserver
+#define CAIO_ENTITY chttpd_server
 #include "caio/generic.h"
 
 
-#endif  // TCPSERVER_H_
+#endif  // SERVER_H_

@@ -31,14 +31,20 @@ endif()
 set(CHTTPD_IOMONITORING "epoll" CACHE STRING "chttpd IO monitoring system.")
 set_property(CACHE CHTTPD_IOMONITORING PROPERTY STRINGS "epoll" "select")
 
+option(CHTTPD_SERVER "Enable chttpd built-in server." ON)
 
-add_library(tcpserver OBJECT tcpserver.c tcpserver.h)
 
-add_executable(chttpd main.c)
-target_link_libraries(chttpd 
-  PRIVATE tcpserver
-  PUBLIC caio
-  )
+if(CHTTPD_SERVER)
+add_library(server OBJECT server.c server.h)
+
+add_executable(chttpd 
+	main.c 
+	$<TARGET_OBJECTS:server>
+)
+
+target_link_libraries(chttpd caio)
+
+endif()
 
 
 # Menu config

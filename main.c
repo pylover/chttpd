@@ -18,13 +18,13 @@
  */
 #include <stdlib.h>
 
-#include "tcpserver.h"
+#include "server.h"
 
 
 int
 main() {
     int exitstatus = EXIT_SUCCESS;
-    struct tcpserver server;
+    struct chttpd_server server;
 //     struct sockaddr_in bindaddr = {
 //         .sin_addr = {htons(0)},
 //         .sin_port = htons(3030),
